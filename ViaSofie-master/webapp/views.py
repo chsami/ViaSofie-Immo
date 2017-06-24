@@ -36,8 +36,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import resolve_url
 import collections
 
-from geopy.geocoders import Nominatim
-
 #sander is awesome
 #removed 171 lines of code
 def slogin(request):
@@ -254,7 +252,7 @@ def panden(request, filters=None):
                         elif value_pl_pos_ref.replace('-', '').isalpha() and value_pl_pos_ref.replace('-', '') != "":
                             #je hebt 1 stad in stadmodel zitten
                             try:
-                                result_queryset = result_queryset.filter(plaats=value_pl_pos_ref.lower())
+                                result_queryset = result_queryset.filter(plaats__icontains = value_pl_pos_ref.encode('utf8').lower())
                             except Exception as ex:
                                 result_queryset = result_queryset[:0]
                         #referentienummer
