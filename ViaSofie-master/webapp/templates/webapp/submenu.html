@@ -175,8 +175,14 @@
     </div>
 </div>
 <script>
-
-$("#searchButton").click(function() {
+$(function() {
+    $("#advancedSearchForm").hide();
+    $("#searchButton").click(function() {
+    if ($("#advancedSearchForm").css('display') == 'none') {
+        $("#advancedSearchForm").show();
+    } else {
+        $("#advancedSearchForm").hide();
+    }
     $(".buy-media").toggleClass("no-pointerevent");
     $("#mega-search").toggleClass("setSearchHeight");
     $("#geavanceerdButton").toggleClass("geavanceerdButtonVisible");
@@ -238,6 +244,8 @@ function change(){
   });
   }
 
-  console.log(hiddenfield.val());
+console.log(hiddenfield.val());
 }
+});
+
 </script>

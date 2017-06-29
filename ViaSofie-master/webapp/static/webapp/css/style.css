@@ -4891,11 +4891,14 @@ ul.nav.nav-pills {
         width: 25%;
     }
     .middle {
-        /*height: 50px;
-        float: left;
-        width: 20%;
-        background-color: #0d3532;*/
-        display: none;
+        right:0;
+        position:fixed;
+        margin-top: 50%;
+        width: 12%;
+        height: 40px;
+    }
+    #mega-search {
+        position:fixed;
     }
     .banner1,
     .banner2,
@@ -6644,7 +6647,7 @@ div.endless_loading {
     }
     .mega-search fieldset .button {
         font-size: 1em;
-        width: 25px;
+        width: 32px;
         padding-top: 10px;
     }
     .searchhr {
