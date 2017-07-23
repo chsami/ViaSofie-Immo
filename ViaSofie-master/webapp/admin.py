@@ -30,7 +30,7 @@ class PandDocumentAdmin(admin.ModelAdmin):
 
 
 class PandAdmin(admin.ModelAdmin):
-    list_display = ('referentienummer', 'user')
+    list_display = ('referentienummer', 'straatnaam', 'plaats', 'user')
     inlines = [DetailInlineAdmin, EPCInlineAdmin, DocumentInlineAdmin]
     DetailInlineAdmin.can_delete = True
 
