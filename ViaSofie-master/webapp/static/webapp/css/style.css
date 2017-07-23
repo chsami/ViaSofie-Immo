@@ -4898,7 +4898,7 @@ ul.nav.nav-pills {
         height: 40px;
     }
     #mega-search {
-        position:fixed;
+        position:relative;
     }
     .banner1,
     .banner2,

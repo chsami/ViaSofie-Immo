@@ -160,21 +160,31 @@ def panddetail(request, pand_referentienummer):
         thumbnails_related.append(thumbnail)
 
     # Get details
-    pand_details = PandDetailModel.objects.filter(pand_id = pand.id).order_by('id')
-
+    # pand_details = PandDetailModel.objects.filter(id = pand.id).order_by('id')
+    pand_details = list()
+    pand_ids = pand.pandDetails().values_list('detail', flat=True).order_by('id')
+    for id in pand_ids:
+        pand_details.append(PandDetailModel.objects.filter(id = id)[0])
+    #print(pand_details)    
     details_left_col_count = len(pand_details)//2
     details_right_col_count = len(pand_details) - details_left_col_count
+    #print(pand_details[:details_left_col_count])
 
     if not details_left_col_count % 2 == 0:
         details_left_col_count + 1
         details_right_col_count - 1
 
-    pand_details_col1 = list(pand_details[:details_left_col_count])
-    pand_details_col2 = list(pand_details.reverse()[:details_right_col_count])
+    pand_details_col1 = pand_details[:details_left_col_count]
+    pand_details = pand_details[::-1]
+    pand_details_col2 = pand_details[:details_right_col_count]
 
 
     # Get PandEPC
-    pand_epcs = PandEPCModel.objects.filter(pand_id = pand.id).order_by('id')
+    pand_epcs = list()
+    pand_epc_ids = pand.pandEPCs().values_list('epc', flat=True).order_by('id')
+    for id in pand_epc_ids:
+        pand_epcs.append(PandEPCModel.objects.filter(id=id)[0])
+    print(pand_epcs)
 
     epc_left_col_count = len(pand_epcs)//2
     epc_right_col_count = len(pand_epcs) - epc_left_col_count
@@ -183,8 +193,9 @@ def panddetail(request, pand_referentienummer):
         epc_left_col_count + 1
         epc_right_col_count - 1
 
-    pand_epc_col1 = list(pand_epcs[:epc_left_col_count])
-    pand_epc_col2 = list(pand_epcs.reverse()[:epc_right_col_count])
+    pand_epc_col1 = pand_epcs[:epc_left_col_count]
+    pand_epcs = pand_epcs[::-1]
+    pand_epc_col2 = pand_epcs[:details_right_col_count]
 
     epc = None
     epc_code = None
@@ -205,7 +216,11 @@ def panddetail(request, pand_referentienummer):
         pand_epc_col1.append(pand_epc_col2.pop())
 
     # Get PandDocuments
-    pand_documenten = PandDocumentModel.objects.filter(pand_id = pand.id)
+    pand_documenten = list()
+    pand_documenten_ids = pand.pandDocuments().values_list('document', flat=True).order_by('id')
+    print(pand_documenten_ids)
+    for id in pand_documenten_ids:
+        pand_documenten.append(PandDocumentModel.objects.filter(id=id)[0])
 
 
     return render_to_response('webapp/pand.html', {'pand': pand, 'pand_details_col1': pand_details_col1, 'pand_details_col2': pand_details_col2, 'pand_epc_col1': pand_epc_col1, 'pand_epc_col2': pand_epc_col2, 'pand_documenten': pand_documenten, 'max_picture_count': max_picture_count, 'fotos' : fotos, 'thumbnail': thumbnail, 'thumbnails_related': thumbnails_related, 'relatedPands' : relatedPands,'url': url , 'formlogin':formlogin, 'searchform': searchform}, context_instance=RequestContext(request))
