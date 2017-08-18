@@ -16,7 +16,7 @@
 
 .detail-line .right {
     display: inline-block;
-    width: 50%;
+    padding-bottom: 3%;
     line-height: 25px;
     text-align: right;
     overflow: auto;
